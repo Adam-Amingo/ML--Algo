@@ -233,3 +233,87 @@ The coefficients (**w₁–w₄**) represent how strongly each feature influence
 ---
 
 ✨ *Linear Regression with 4 features generalizes easily to any number of predictors — forming the mathematical foundation for Ridge, Lasso, and even Neural Network layers.*
+
+
+# ⚖️ Ordinary Least Squares (OLS) vs Ridge Regression
+
+Both **OLS** and **Ridge Regression** are linear models used to estimate coefficients \( \beta \) that best fit the relationship between features \( X \) and target \( y \).  
+The main difference lies in how they handle **model complexity** and **overfitting**.
+
+---
+
+```
+
+
+```
+
+## 1️⃣ Ordinary Least Squares (OLS)
+
+OLS minimizes the **sum of squared errors** between predicted and actual values.
+
+### 📘 Objective Function
+
+![ols_obj](https://latex.codecogs.com/svg.image?\bg_white J(\beta)=\frac{1}{2m}\sum_{i=1}^{m}(\hat{y}^{(i)}-y^{(i)})^{2})
+
+or in **matrix form**:
+
+![ols_matrix](https://latex.codecogs.com/svg.image?\bg_white J(\beta)=\frac{1}{2m}(X\beta-y)^{T}(X\beta-y))
+
+### 🧮 Closed-Form Solution
+
+OLS provides an analytical solution for the optimal parameters:
+
+![ols_solution](https://latex.codecogs.com/svg.image?\bg_white\hat{\beta}_{OLS}=(X^{T}X)^{-1}X^{T}y)
+
+> 💡 OLS assumes:
+> - No multicollinearity among features  
+> - Homoscedasticity (constant variance)  
+> - Independence of errors  
+
+---
+
+## 2️⃣ Ridge Regression (L2 Regularization)
+
+Ridge Regression extends OLS by adding a **penalty term** on the magnitude of coefficients.
+
+### 📘 Objective Function
+
+![ridge_obj](https://latex.codecogs.com/svg.image?\bg_whiteJ(\beta)=\frac{1}{2m}(X\beta-y)^{T}(X\beta-y)+\lambda\|\beta\|_{2}^{2})
+
+> - \( \lambda \geq 0 \): regularization strength  
+> - \( \|\beta\|_{2}^{2} = \sum_{j=1}^{n}\beta_{j}^{2} \): L2 norm  
+
+### 🧮 Closed-Form Solution
+
+The Ridge solution modifies OLS by adding \( \lambda I \) to stabilize inversion:
+
+![ridge_solution](https://latex.codecogs.com/svg.image?\bg_white\hat{\beta}_{Ridge}=(X^{T}X+\lambdaI)^{-1}X^{T}y)
+
+> 🔍 When \( \lambda = 0 \), Ridge Regression becomes identical to OLS.  
+> As \( \lambda \) increases, coefficients shrink toward zero, reducing overfitting.
+
+---
+
+## 3️⃣ Comparison Summary
+
+| Concept                 | OLS                                                                                                   | Ridge Regression                                                                                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Objective**           | ![ols_J](https://latex.codecogs.com/svg.image?\bg_whiteJ(\beta)=\frac{1}{2m}(X\beta-y)^{T}(X\beta-y)) | ![ridge_J](https://latex.codecogs.com/svg.image?\bg_whiteJ(\beta)=\frac{1}{2m}(X\beta-y)^{T}(X\beta-y)+\lambda\|\beta\|_{2}^{2}) |
+| **Solution**            | ![ols_sol](https://latex.codecogs.com/svg.image?\bg_white\hat{\beta}_{OLS}=(X^{T}X)^{-1}X^{T}y)       | ![ridge_sol](https://latex.codecogs.com/svg.image?\bg_white\hat{\beta}_{Ridge}=(X^{T}X+\lambdaI)^{-1}X^{T}y)                     |
+| **Regularization Term** | None                                                                                                  | \( \lambda\|\beta\|_{2}^{2} \)                                                                                                   |
+| **Effect of λ**         | —                                                                                                     | Controls coefficient shrinkage                                                                                                   |
+| **Overfitting**         | Prone when multicollinearity exists                                                                   | Reduces overfitting and variance                                                                                                 |
+| **Interpretability**    | Easier                                                                                                | Slightly less intuitive (coefficients biased toward 0)                                                                           |
+
+---
+
+## 🧠 Key Takeaways
+
+- **OLS** finds parameters that minimize residual error — perfect when features are independent.  
+- **Ridge Regression** adds an L2 penalty to improve generalization and numerical stability.  
+- Ridge helps when \( X^T X \) is nearly singular or features are highly correlated.
+
+---
+
+✨ *Ridge Regression = OLS + Penalty Term → More robust, less variance, smoother generalization.*
+
