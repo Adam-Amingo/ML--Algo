@@ -99,3 +99,83 @@ Gradient Descent can be visualized as moving downhill on a cost surface — the 
 - **Mini-batch Gradient Descent** (not covered here) offers a balance between both.
 
 ---
+
+
+```
+
+
+```
+
+# ⚙️ Gradient Descent — Core Optimization Algorithm
+
+Gradient Descent is an **iterative optimization algorithm** used to minimize a cost (loss) function by updating parameters in the opposite direction of the gradient.
+
+---
+
+## 🧮 1️⃣ Batch Gradient Descent (Full Gradient Descent)
+
+Batch Gradient Descent computes the **gradient of the entire training dataset** before each update.
+
+### 📘 Cost Function
+The cost function for linear regression is:
+
+![J(theta)](https://latex.codecogs.com/svg.image?&space;J(%5Ctheta)%3D%5Cfrac%7B1%7D%7B2m%7D%5Csum_%7Bi%3D1%7D%5E%7Bm%7D%28h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29-y%5E%7B%28i%29%7D%29%5E2)
+
+### 📘 Parameter Update Rule
+In Batch Gradient Descent, the parameters are updated as:
+
+![theta update](https://latex.codecogs.com/svg.image?&space;%5Ctheta_j%3A%3D%5Ctheta_j-%5Calpha%5Cfrac%7B1%7D%7Bm%7D%5Csum_%7Bi%3D1%7D%5E%7Bm%7D%28h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29-y%5E%7B%28i%29%7D%29x_j%5E%7B%28i%29%7D)
+
+> Where:
+> - ![theta](https://latex.codecogs.com/svg.image?&space;%5Ctheta_j) → model parameter  
+> - ![alpha](https://latex.codecogs.com/svg.image?&space;%5Calpha) → learning rate  
+> - ![h(x)](https://latex.codecogs.com/svg.image?&space;h_%7B%5Ctheta%7D%28x%29%3D%5Ctheta%5ETx) → hypothesis function  
+> - ![m](https://latex.codecogs.com/svg.image?&space;m) → number of training examples  
+
+### ✅ Advantages
+- Converges **smoothly** and **stably** toward the global minimum (for convex functions).
+- Provides **accurate** updates using all data points.
+
+### ⚠️ Disadvantages
+- **Computationally expensive** for large datasets.
+- Requires the **entire dataset** to fit in memory.
+- **Slow convergence** when data is massive.
+
+---
+
+## ⚙️ 2️⃣ Stochastic Gradient Descent (SGD)
+
+Instead of computing the gradient over all `m` samples, SGD updates parameters **after each training example**.
+
+### 📘 Update Rule
+
+![SGD](https://latex.codecogs.com/svg.image?&space;%5Ctheta_j%3A%3D%5Ctheta_j-%5Calpha%28h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29-y%5E%7B%28i%29%7D%29x_j%5E%7B%28i%29%7D)
+
+### ✅ Advantages
+- **Much faster** for large datasets.
+- Enables **online learning** — model updates continuously as new data arrives.
+- Can **escape local minima** due to its noisy updates.
+
+### ⚠️ Disadvantages
+- **Noisy convergence** — loss fluctuates heavily before stabilizing.
+- May not reach the exact global minimum but oscillate around it.
+
+---
+
+## 📊 3️⃣ Comparison Summary
+
+| Type                    | Update Frequency  | Convergence     | Computation | Memory | Best For             |
+| ----------------------- | ----------------- | --------------- | ----------- | ------ | -------------------- |
+| **Batch GD**            | After all samples | Smooth & stable | Expensive   | High   | Small datasets       |
+| **Stochastic GD (SGD)** | After each sample | Noisy but fast  | Cheap       | Low    | Large/streaming data |
+
+---
+
+### ✨ Intuition
+
+Batch Gradient Descent takes **large but steady steps** by averaging gradients from the whole dataset.  
+Stochastic Gradient Descent takes **many quick steps**, bouncing around the valley but often finding a good minimum faster.
+
+---
+
+🧠 *Both methods form the backbone of modern optimization in machine learning — from linear regression to deep neural networks.*
